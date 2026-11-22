@@ -25,12 +25,16 @@ async function request(url, options) {
 
 export const getTasks = () => request(BASE);
 
-export const addTask = (title) =>
-  request(BASE, {
+// US-101: `due_date` (YYYY-MM-DD) is sent only when a non-empty string was chosen.
+export const addTask = (title, dueDate) => {
+  const payload = { title };
+  if (typeof dueDate === 'string' && dueDate !== '') payload.due_date = dueDate;
+  return request(BASE, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title }),
+    body: JSON.stringify(payload),
   });
+};
 
 // ENH-01: patch is `{ title?, status? }` (spec 4.2.3).
 export const updateTask = (id, patch) =>

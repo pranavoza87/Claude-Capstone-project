@@ -1,5 +1,6 @@
 const path = require('path');
 const Database = require('better-sqlite3');
+const { migrate } = require('./migrations');
 
 const dbPath = process.env.DB_PATH || path.join(__dirname, '..', 'tasks.db');
 const db = new Database(dbPath);
@@ -13,5 +14,7 @@ db.exec(`
     status TEXT NOT NULL DEFAULT 'todo'
   )
 `);
+
+migrate(db);
 
 module.exports = db;
