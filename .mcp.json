@@ -2,10 +2,25 @@
   "mcpServers": {
     "jira": {
       "command": "uvx",
-      "args": ["--python", "3.12", "mcp-atlassian"],
+      "args": [
+        "--python",
+        "3.12",
+        "mcp-atlassian"
+      ],
       "env": {
         "JIRA_URL": "https://jiraeu.epam.com",
         "JIRA_PERSONAL_TOKEN": "${JIRA_PERSONAL_TOKEN}"
       }
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
     }
   }
+}
