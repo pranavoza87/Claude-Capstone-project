@@ -9,8 +9,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/guard-tasks-db.ps1",
-            "shell": "powershell"
+            "command": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/guard-tasks-db.ps1"
+            ]
           }
         ]
       }
@@ -20,8 +26,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/log-subagent.ps1",
-            "shell": "powershell"
+            "command": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-subagent.ps1"
+            ]
           }
         ]
       }
@@ -31,8 +43,14 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/log-subagent.ps1",
-            "shell": "powershell"
+            "command": "powershell.exe",
+            "args": [
+              "-NoProfile",
+              "-ExecutionPolicy",
+              "Bypass",
+              "-File",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-subagent.ps1"
+            ]
           }
         ]
       }
