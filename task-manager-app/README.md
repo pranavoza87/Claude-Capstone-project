@@ -10,13 +10,14 @@ task-manager-capstone/
 ├── backend/
 │   ├── package.json
 │   └── src/
-│       ├── db.js         # SQLite connection + `tasks` table (id, title, status)
+│       ├── db.js         # SQLite connection + `tasks` table (id, title, status, due_date)
+│       ├── migrations.js # idempotent migrate(db): adds nullable due_date column
 │       └── server.js     # Express REST API
 └── frontend/
     ├── package.json
     ├── vite.config.js    # proxies /api -> http://localhost:4000
     ├── index.html
-    └── src/ (main.jsx, App.jsx, api.js, styles.css)
+    └── src/ (main.jsx, App.jsx, api.js, dates.js, styles.css)
 ```
 
 ## Prerequisites
@@ -42,8 +43,8 @@ Override with `DB_PATH` and `PORT` environment variables.
 
 | Method | Path             | Body                       | Response                     |
 |--------|------------------|----------------------------|------------------------------|
-| GET    | `/api/tasks`     | -                          | `[{ id, title, status }]`    |
-| POST   | `/api/tasks`     | `{ "title": "...", "status"?: "todo" \| "in_progress" \| "done" }` | `201` created task, or `400` |
+| GET    | `/api/tasks`     | -                          | `[{ id, title, status, due_date }]` |
+| POST   | `/api/tasks`     | `{ "title": "...", "status"?: "todo" \| "in_progress" \| "done", "due_date"?: "YYYY-MM-DD" \| null }` | `201` created task, or `400` |
 | PATCH  | `/api/tasks/:id` | `{ "title"?, "status"? }`  | `200` updated task, `400`, `404`, `413` or `500` |
 | DELETE | `/api/tasks/:id` | -                          | `204`, or `404` if not found |
 
@@ -85,7 +86,7 @@ Other rules:
 - Any other client error from the body parser (for example an unsupported `Content-Encoding` or charset)
   is normalised to `400` `VALIDATION_ERROR`, so this route only returns 400, 404, 413 or 500 on failure.
 
-Success returns `200` with the updated task `{ id, title, status }`. Errors on this route use this shape:
+Success returns `200` with the updated task `{ id, title, status, due_date }`. `due_date` cannot be changed here; sending it returns `400` as an unknown field. Errors on this route use this shape:
 
 ```json
 { "error": { "code": "VALIDATION_ERROR", "message": "Invalid request",
@@ -105,13 +106,30 @@ The other routes keep their existing `{ "error": "text" }` shape for now.
 curl -X PATCH localhost:4000/api/tasks/1 -H "Content-Type: application/json" -d '{"status":"in_progress"}'
 ```
 
+## Optional due dates (US-101)
+
+Tasks can have an optional due date, set when the task is created.
+
+- **Add form:** choose a date in the "Due date (optional)" input. Leave it empty for no due date.
+- **Display:** the date shows as `YYYY-MM-DD` next to the title. Tasks without a date show nothing.
+- **Overdue:** a task whose due date is before today (browser local date) and whose status is not `done` is highlighted and labelled "Overdue". A task due today is not overdue.
+- **API:** `POST /api/tasks` accepts `due_date` as a real calendar date in `YYYY-MM-DD`, or `null`, omitted or `""` for none. Anything else returns `400` with `{ "error": "due_date must be a valid date in YYYY-MM-DD format" }` and no task is created. `GET` and `PATCH` responses include `due_date`.
+- **Database:** on startup the backend adds a nullable `due_date` column if it is missing. Existing rows are kept and get `NULL`. No data is dropped, and restarting is safe.
+- **Not yet supported:** editing or clearing a due date, and sorting or filtering by date.
+
+```bash
+curl -X POST localhost:4000/api/tasks -H "Content-Type: application/json" -d '{"title":"Pay rent","due_date":"2026-12-01"}'
+```
+
 ## Testing
 
 ```bash
 npm run build             # Vite production build
-npm test --prefix backend   # node:test integration tests, temporary SQLite file, no extra dependencies
+npm run test:backend       # node:test backend tests (same as: npm test --prefix backend), temporary SQLite file
+npm run test:frontend      # node:test unit tests for frontend date helpers (isOverdue, todayLocal)
 npx playwright install chromium  # one-time browser setup
 npm run test:search        # Playwright task-search acceptance tests
+npm run test:bdd           # generates and runs the playwright-bdd due-date E2E suite against a temporary database
 ```
 
 ## Troubleshooting
