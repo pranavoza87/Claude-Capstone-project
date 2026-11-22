@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "generatedAt": "2026-11-20T16:48:49.969Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 8725464,
+      "turns": 2,
+      "files": 0,
+      "netLines": 0,
+      "toolCallsTotal": 2,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.0609246,
+      "cacheReadCostUSD": 0.006390600000000001,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "estimatedModels": [],
+    "localModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "pranav_oza@epam.com",
+    "periodStart": "2026-11-20T08:16:58.182Z",
+    "periodEnd": "2026-11-20T10:42:23.646Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "b7e54d34-34ae-404b-9d21-778bc821302e",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "The command below was run directly in Claude Code, not sent to you as a request, and its output goes straight to the user. It's recorded here as context for later messages.",
+      "project": "C:\\Users\\PranavOza\\Claude-Capstone-project",
+      "branch": "HEAD",
+      "startTime": 1795162618182,
+      "durationMs": 8725464,
+      "turns": 2,
+      "fileOps": 0,
+      "linesAdded": 0,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 0,
+      "filesChanged": 0,
+      "filesWritten": 0,
+      "filesEdited": 0,
+      "toolCallsTotal": 2,
+      "toolCallsSuccess": 2,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "languages": [],
+      "tools": [
+        {
+          "toolName": "Glob",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 4,
+        "output": 545,
+        "cacheRead": 63906,
+        "cacheCreation": 12269,
+        "cacheCreation1h": 12269,
+        "total": 76724
+      },
+      "costUSD": 0.0609246,
+      "cacheReadCostUSD": 0.006390600000000001,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5-5",
+          "tokens": {
+            "input": 4,
+            "output": 545,
+            "cacheRead": 63906,
+            "cacheCreation": 12269,
+            "cacheCreation1h": 12269,
+            "total": 76724
+          },
+          "costUSD": 0.0609246,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "agentSessionFile": "C:\\Users\\PranavOza\\.claude\\projects\\C--Users-PranavOza-Claude-Capstone-project\\62d9d48b-e161-4147-80d9-83ac8a7caa12.jsonl",
+      "costSeries": [
+        {
+          "t": 1795171118411,
+          "cost": 0.0513512,
+          "tokens": 38001
+        },
+        {
+          "t": 1795171127942,
+          "cost": 0.060924599999999995,
+          "tokens": 76724
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "command",
+          "name": "agents",
+          "start": 1795162657548,
+          "durationMs": 0,
+          "id": "command:41319183-2fe7-451d-b1ab-d9b6a4dbd9c6:0",
+          "ownerAgentId": "b7e54d34-34ae-404b-9d21-778bc821302e",
+          "relationshipStatus": "root",
+          "elapsedMs": 0,
+          "status": "completed",
+          "attributionStatus": "unavailable",
+          "attributionScope": "owner-window"
+        }
+      ],
+      "costSource": "native-estimate",
+      "costBasis": "standard-api-tokens",
+      "dispatchesComplete": true,
+      "rootOwnCostUSD": 0.0609246,
+      "unlinkedCostUSD": 0,
+      "unlinkedAgentIds": [],
+      "observedEnd": 1795171343646,
+      "rootOwnTokens": {
+        "input": 4,
+        "output": 545,
+        "cacheRead": 63906,
+        "cacheCreation": 12269,
+        "cacheCreation1h": 12269,
+        "total": 76724
+      },
+      "unlinkedTokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "modelTimeline": [
+        {
+          "t": 1795171118411,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0513512,
+          "tokens": 38001
+        },
+        {
+          "t": 1795171127942,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0095734,
+          "tokens": 38723
+        }
+      ],
+      "routedTurnsPct": 0,
+      "skillInvocations": [],
+      "agentInvocations": [],
+      "commandInvocations": [
+        {
+          "name": "agents",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0
+        }
+      ],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+﻿tests/.tmp/
+.features-gen/
+test-results/
+tests/Test Execution & Reporting/

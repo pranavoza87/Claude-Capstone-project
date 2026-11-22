@@ -1,0 +1,508 @@
+{
+  "meta": {
+    "generatedAt": "2026-11-20T18:37:20.942Z",
+    "rangeLabel": "all",
+    "agents": [
+      "claude"
+    ],
+    "projectFilter": "all",
+    "totals": {
+      "sessions": 1,
+      "durationMs": 2897929,
+      "turns": 23,
+      "files": 11,
+      "netLines": 90,
+      "toolCallsTotal": 25,
+      "toolSuccessRate": 100,
+      "totalCostUSD": 0.5837949,
+      "cacheReadCostUSD": 0.11091690000000001,
+      "pricedSessions": 1
+    },
+    "unpricedModels": [],
+    "estimatedModels": [],
+    "localModels": [],
+    "coverage": [
+      {
+        "agentName": "claude",
+        "total": 1,
+        "priced": 1,
+        "withLog": 1
+      }
+    ],
+    "userEmail": "pranav_oza@epam.com",
+    "periodStart": "2026-11-20T17:48:57.866Z",
+    "periodEnd": "2026-11-20T18:37:15.795Z"
+  },
+  "sessions": [
+    {
+      "sessionId": "a7682181-e14d-480f-bf60-888e5c0f1cdd",
+      "agentName": "claude",
+      "provider": "ai-run-sso",
+      "title": "Read docs/user-story.md and use the Jira MCP server to create a new User Story in project EPMCDMETST titled \"US-101: Add Due Dates to Tasks\" with the description and acceptance criteria from docs/user-story.md. Show me the exact fields first and wait for my approval before creating the issue. Once created, return the Jira Issue Key and full URL.",
+      "project": "C:\\Users\\PranavOza\\Claude-Capstone-project",
+      "branch": "HEAD",
+      "startTime": 1795196937866,
+      "durationMs": 2897929,
+      "turns": 23,
+      "fileOps": 11,
+      "linesAdded": 90,
+      "linesRemoved": 0,
+      "linesModified": 0,
+      "netLines": 90,
+      "filesChanged": 1,
+      "filesWritten": 1,
+      "filesEdited": 0,
+      "toolCallsTotal": 25,
+      "toolCallsSuccess": 25,
+      "toolCallsFailure": 0,
+      "models": [
+        "claude-sonnet-5-5"
+      ],
+      "languages": [
+        "markdown",
+        "javascript",
+        "json"
+      ],
+      "tools": [
+        {
+          "toolName": "Read",
+          "totalCalls": 10,
+          "successCount": 10,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Glob",
+          "totalCalls": 5,
+          "successCount": 5,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "ToolSearch",
+          "totalCalls": 3,
+          "successCount": 3,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "SendMessage",
+          "totalCalls": 2,
+          "successCount": 2,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "mcp__jira__jira_get_project_issue_types",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "mcp__jira__jira_create_issue",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "mcp__jira__jira_get_issue",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Agent",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        },
+        {
+          "toolName": "Write",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0,
+          "successRate": 100
+        }
+      ],
+      "tokens": {
+        "input": 66,
+        "output": 17957,
+        "cacheRead": 1109169,
+        "cacheCreation": 73294,
+        "cacheCreation1h": 73294,
+        "total": 1200486
+      },
+      "costUSD": 0.5837949,
+      "cacheReadCostUSD": 0.11091690000000001,
+      "perModelCost": [
+        {
+          "model": "claude-sonnet-5-5",
+          "tokens": {
+            "input": 66,
+            "output": 17957,
+            "cacheRead": 1109169,
+            "cacheCreation": 73294,
+            "cacheCreation1h": 73294,
+            "total": 1200486
+          },
+          "costUSD": 0.5837949,
+          "unpriced": false
+        }
+      ],
+      "hadLog": true,
+      "agentSessionFile": "C:\\Users\\PranavOza\\.claude\\projects\\C--Users-PranavOza-Claude-Capstone-project\\baea58fe-3215-4aa1-a9a0-d1e741f6cdbc.jsonl",
+      "costSeries": [
+        {
+          "t": 1795197079126,
+          "cost": 0.048212,
+          "tokens": 39705
+        },
+        {
+          "t": 1795197084443,
+          "cost": 0.0678521,
+          "tokens": 81923
+        },
+        {
+          "t": 1795197108322,
+          "cost": 0.0728115,
+          "tokens": 124217
+        },
+        {
+          "t": 1795197122197,
+          "cost": 0.0890994,
+          "tokens": 168456
+        },
+        {
+          "t": 1795197132456,
+          "cost": 0.10384059999999999,
+          "tokens": 214217
+        },
+        {
+          "t": 1795197303889,
+          "cost": 0.11420849999999999,
+          "tokens": 260628
+        },
+        {
+          "t": 1795197306985,
+          "cost": 0.14996179999999998,
+          "tokens": 289542
+        },
+        {
+          "t": 1795197315619,
+          "cost": 0.19470439999999997,
+          "tokens": 327820
+        },
+        {
+          "t": 1795197341650,
+          "cost": 0.2806818,
+          "tokens": 382143
+        },
+        {
+          "t": 1795197352396,
+          "cost": 0.3102833,
+          "tokens": 432621
+        },
+        {
+          "t": 1795197380980,
+          "cost": 0.3209689,
+          "tokens": 483673
+        },
+        {
+          "t": 1795197388175,
+          "cost": 0.344876,
+          "tokens": 537598
+        },
+        {
+          "t": 1795197392445,
+          "cost": 0.3590106,
+          "tokens": 592119
+        },
+        {
+          "t": 1795197393301,
+          "cost": 0.38408200000000003,
+          "tokens": 647814
+        },
+        {
+          "t": 1795197395824,
+          "cost": 0.41412920000000003,
+          "tokens": 708680
+        },
+        {
+          "t": 1795197412063,
+          "cost": 0.4474755,
+          "tokens": 772741
+        },
+        {
+          "t": 1795197427048,
+          "cost": 0.47768540000000004,
+          "tokens": 831338
+        },
+        {
+          "t": 1795199216999,
+          "cost": 0.4863429,
+          "tokens": 890219
+        },
+        {
+          "t": 1795199218719,
+          "cost": 0.4942589,
+          "tokens": 949250
+        },
+        {
+          "t": 1795199223982,
+          "cost": 0.5162692,
+          "tokens": 1014108
+        },
+        {
+          "t": 1795199231228,
+          "cost": 0.5281961,
+          "tokens": 1074231
+        },
+        {
+          "t": 1795199246985,
+          "cost": 0.5635024,
+          "tokens": 1137189
+        },
+        {
+          "t": 1795199262571,
+          "cost": 0.5837949,
+          "tokens": 1200486
+        }
+      ],
+      "dispatches": [
+        {
+          "kind": "agent",
+          "name": "step1-requirements",
+          "start": 1795197303889,
+          "durationMs": 41527,
+          "id": "toolu_bdrk_011T1ZJqinosbq2N7gZtKhNc",
+          "ownerAgentId": "a7682181-e14d-480f-bf60-888e5c0f1cdd",
+          "agentId": "a761b3634f772b6ef",
+          "depth": 1,
+          "relationshipStatus": "resolved",
+          "acknowledgedAt": 1795197345416,
+          "observedEnd": 1795199223982,
+          "completedAt": 1795197345416,
+          "elapsedMs": 41527,
+          "status": "completed",
+          "costUSD": 0.2769485,
+          "inclusiveCostUSD": 0.2769485,
+          "attributionStatus": "exact",
+          "attributionScope": "own",
+          "tokens": {
+            "input": 18,
+            "output": 7294,
+            "cacheRead": 316605,
+            "cacheCreation": 43078,
+            "cacheCreation1h": 43078,
+            "total": 366995
+          },
+          "inclusiveTokens": {
+            "input": 18,
+            "output": 7294,
+            "cacheRead": 316605,
+            "cacheCreation": 43078,
+            "cacheCreation1h": 43078,
+            "total": 366995
+          },
+          "tools": [
+            {
+              "name": "Read",
+              "calls": 9
+            },
+            {
+              "name": "Glob",
+              "calls": 4
+            },
+            {
+              "name": "ToolSearch",
+              "calls": 1
+            },
+            {
+              "name": "mcp__jira__jira_get_issue",
+              "calls": 1
+            }
+          ]
+        }
+      ],
+      "costSource": "native-estimate",
+      "costBasis": "standard-api-tokens",
+      "dispatchesComplete": true,
+      "rootOwnCostUSD": 0.30684639999999996,
+      "unlinkedCostUSD": 0,
+      "unlinkedAgentIds": [],
+      "observedEnd": 1795199835795,
+      "rootOwnTokens": {
+        "input": 48,
+        "output": 10663,
+        "cacheRead": 792564,
+        "cacheCreation": 30216,
+        "cacheCreation1h": 30216,
+        "total": 833491
+      },
+      "unlinkedTokens": {
+        "input": 0,
+        "output": 0,
+        "cacheRead": 0,
+        "cacheCreation": 0,
+        "cacheCreation1h": 0,
+        "total": 0
+      },
+      "modelTimeline": [
+        {
+          "t": 1795197079126,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.048212,
+          "tokens": 39705
+        },
+        {
+          "t": 1795197084443,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0196401,
+          "tokens": 42218
+        },
+        {
+          "t": 1795197108322,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0049594,
+          "tokens": 42294
+        },
+        {
+          "t": 1795197122197,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0162879,
+          "tokens": 44239
+        },
+        {
+          "t": 1795197132456,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0147412,
+          "tokens": 45761
+        },
+        {
+          "t": 1795197303889,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0103679,
+          "tokens": 46411
+        },
+        {
+          "t": 1795197306985,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0357533,
+          "tokens": 28914
+        },
+        {
+          "t": 1795197315619,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0447426,
+          "tokens": 38278
+        },
+        {
+          "t": 1795197341650,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0859774,
+          "tokens": 54323
+        },
+        {
+          "t": 1795197352396,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0296015,
+          "tokens": 50478
+        },
+        {
+          "t": 1795197380980,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0106856,
+          "tokens": 51052
+        },
+        {
+          "t": 1795197388175,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0239071,
+          "tokens": 53925
+        },
+        {
+          "t": 1795197392445,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0141346,
+          "tokens": 54521
+        },
+        {
+          "t": 1795197393301,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0250714,
+          "tokens": 55695
+        },
+        {
+          "t": 1795197395824,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0300472,
+          "tokens": 60866
+        },
+        {
+          "t": 1795197412063,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0333463,
+          "tokens": 64061
+        },
+        {
+          "t": 1795197427048,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0302099,
+          "tokens": 58597
+        },
+        {
+          "t": 1795199216999,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0086575,
+          "tokens": 58881
+        },
+        {
+          "t": 1795199218719,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.007916,
+          "tokens": 59031
+        },
+        {
+          "t": 1795199223982,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0220103,
+          "tokens": 64858
+        },
+        {
+          "t": 1795199231228,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0119269,
+          "tokens": 60123
+        },
+        {
+          "t": 1795199246985,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0353063,
+          "tokens": 62958
+        },
+        {
+          "t": 1795199262571,
+          "model": "claude-sonnet-5-5",
+          "costUSD": 0.0202925,
+          "tokens": 63297
+        }
+      ],
+      "routedTurnsPct": 0,
+      "skillInvocations": [],
+      "agentInvocations": [
+        {
+          "name": "step1-requirements",
+          "totalCalls": 1,
+          "successCount": 1,
+          "failureCount": 0
+        }
+      ],
+      "commandInvocations": [],
+      "sessionSource": "Pure chat"
+    }
+  ]
+}
