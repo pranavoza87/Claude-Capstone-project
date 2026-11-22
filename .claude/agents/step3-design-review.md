@@ -1,6 +1,7 @@
 ---
 name: step3-design-review
 description: Critically reviews docs/architecture.md against docs/requirements.md and existing backend/Playwright tests to catch brownfield regressions before implementation planning.
+skills: [design-review]
 disallowedTools: Edit, NotebookEdit
 permissionMode: default
 color: yellow

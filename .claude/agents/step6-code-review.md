@@ -1,6 +1,7 @@
 ---
 name: step6-code-review
 description: Performs a thorough brownfield code review of the feature/us-101-due-dates git diff against docs/requirements.md, docs/architecture.md, and docs/design-review.md.
+skills: [code-review]
 disallowedTools: Edit, NotebookEdit
 permissionMode: default
 color: magenta

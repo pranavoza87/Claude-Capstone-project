@@ -1,6 +1,7 @@
 ---
 name: step5-implementation
 description: Implements approved brownfield changes phase-by-phase from docs/impl-plan.md (including Phase 0 baseline/backup) with strict Human-in-the-Loop checkpoints after each phase.
+skills: [implementation]
 permissionMode: default
 color: blue
 ---

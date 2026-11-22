@@ -1,6 +1,7 @@
 ---
 name: step7-docs-release-notes
 description: Generates user-facing documentation, README updates, and release notes (docs/release-notes.md) for the implemented feature based on approved SDLC artifacts and git diff.
+skills: [docs-release-notes]
 permissionMode: default
 color: cyan
 ---

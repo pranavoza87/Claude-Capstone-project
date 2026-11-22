@@ -1,6 +1,7 @@
 ---
 name: step8-pr-open-review-merge
 description: Manages the full GitHub Pull Request lifecycle (open, post review summary, and merge) for feature/us-101-due-dates into main using GitHub MCP with strict HITL approval gates.
+skills: [pr-open-review-merge]
 permissionMode: default
 color: green
 ---
