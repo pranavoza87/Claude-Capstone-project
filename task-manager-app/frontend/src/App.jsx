@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { getTasks, addTask, updateTask, deleteTask } from './api.js';
+import { todayLocal, isOverdue } from './dates.js';
 
 // Same limit and measure as the API: 200 characters, counted in code points (an emoji counts as one, but one with
 // a variation selector or a ZWJ sequence counts as several).
@@ -96,8 +97,11 @@ function TaskItem({ task, onSaved, onDelete }) {
     }
   };
 
+  // Computed on every render (a tab left open past midnight updates on the next render).
+  const overdue = isOverdue(task.due_date, task.status, todayLocal());
+
   return (
-    <li>
+    <li className={overdue ? 'overdue' : undefined}>
       {editing ? (
         <span className="edit-field">
           <input
@@ -128,6 +132,12 @@ function TaskItem({ task, onSaved, onDelete }) {
         <span>{task.title}</span>
       )}
       <span className="status">{task.status}</span>
+      {task.due_date && (
+        <time className="due-date" dateTime={task.due_date}>
+          {task.due_date}
+        </time>
+      )}
+      {overdue && <span className="overdue-label">Overdue</span>}
       {editing ? (
         <>
           <button onClick={save} disabled={saving} aria-label={`Save title for ${task.title}`}>
@@ -160,6 +170,7 @@ function TaskItem({ task, onSaved, onDelete }) {
 export default function App() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
+  const [dueDate, setDueDate] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [error, setError] = useState('');
   const [hasLoadedTasks, setHasLoadedTasks] = useState(false);
@@ -193,8 +204,9 @@ export default function App() {
     if (!title.trim()) return;
     try {
       setError('');
-      await addTask(title);
+      await addTask(title, dueDate);
       setTitle('');
+      setDueDate('');
       await load();
     } catch (err) {
       setError(err.message);
@@ -222,6 +234,13 @@ export default function App() {
           value={title}
           onChange={(e) => setTitle(clampTitle(e.target.value))}
           placeholder="New task title"
+        />
+        <label htmlFor="task-due-date">Due date (optional)</label>
+        <input
+          id="task-due-date"
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
         />
         <button type="submit">Add</button>
       </form>

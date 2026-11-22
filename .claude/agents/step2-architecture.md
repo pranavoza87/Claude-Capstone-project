@@ -1,6 +1,7 @@
 ---
 name: step2-architecture
 description: Designs high-level brownfield system architecture from docs/requirements.md, including Mermaid component/data-flow diagrams, schema migration, API contracts, and UI changes.
+skills: [architecture]
 disallowedTools: Edit, NotebookEdit
 permissionMode: default
 color: cyan
