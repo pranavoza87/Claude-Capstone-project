@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { getTasks, addTask, updateTask, deleteTask } from './api.js';
-import { todayLocal, isOverdue } from './dates.js';
+import { todayLocal, isOverdue, filterTasks } from './dates.js';
 
 // Same limit and measure as the API: 200 characters, counted in code points (an emoji counts as one, but one with
 // a variation selector or a ZWJ sequence counts as several).
@@ -172,16 +172,12 @@ export default function App() {
   const [title, setTitle] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [overdueOnly, setOverdueOnly] = useState(false);
   const [error, setError] = useState('');
   const [hasLoadedTasks, setHasLoadedTasks] = useState(false);
 
-  const normalizedQuery = searchQuery.toLowerCase();
-  const visibleTasks = tasks.filter((task) => {
-    if (!task || typeof task !== 'object' || task.id == null || typeof task.title !== 'string') {
-      return false;
-    }
-    return task.title.toLowerCase().includes(normalizedQuery);
-  });
+  // Computed on every render, like the row's Overdue label (same isOverdue, so they cannot disagree).
+  const visibleTasks = filterTasks(tasks, searchQuery, overdueOnly, todayLocal());
 
   const load = () =>
     getTasks()
@@ -253,6 +249,15 @@ export default function App() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        <div className="filter-toggle">
+          <input
+            id="overdue-only"
+            type="checkbox"
+            checked={overdueOnly}
+            onChange={(e) => setOverdueOnly(e.target.checked)}
+          />
+          <label htmlFor="overdue-only">Show overdue only</label>
+        </div>
       </div>
 
       {error && <p className="error">{error}</p>}
@@ -263,6 +268,11 @@ export default function App() {
         ))}
       </ul>
       {hasLoadedTasks && tasks.length === 0 && <p className="empty">No tasks yet.</p>}
+      {hasLoadedTasks && overdueOnly && tasks.length > 0 && visibleTasks.length === 0 && (
+        <p className="empty" role="status">
+          No overdue tasks.
+        </p>
+      )}
     </main>
   );
 }

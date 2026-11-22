@@ -115,21 +115,31 @@ Tasks can have an optional due date, set when the task is created.
 - **Overdue:** a task whose due date is before today (browser local date) and whose status is not `done` is highlighted and labelled "Overdue". A task due today is not overdue.
 - **API:** `POST /api/tasks` accepts `due_date` as a real calendar date in `YYYY-MM-DD`, or `null`, omitted or `""` for none. Anything else returns `400` with `{ "error": "due_date must be a valid date in YYYY-MM-DD format" }` and no task is created. `GET` and `PATCH` responses include `due_date`.
 - **Database:** on startup the backend adds a nullable `due_date` column if it is missing. Existing rows are kept and get `NULL`. No data is dropped, and restarting is safe.
-- **Not yet supported:** editing or clearing a due date, and sorting or filtering by date.
+- **Not yet supported:** editing or clearing a due date, and sorting by date.
 
 ```bash
 curl -X POST localhost:4000/api/tasks -H "Content-Type: application/json" -d '{"title":"Pay rent","due_date":"2026-12-01"}'
 ```
+
+### Overdue filter (EPMCDMETST-73342)
+
+Check "Show overdue only" under the search box to list only overdue tasks. Uncheck it to restore the full list.
+
+- It uses the same rule as the "Overdue" label, so the two always agree. Tasks with no due date, a future or today due date, or status `done` are hidden while it is on.
+- It combines with the title search (both must match).
+- If tasks exist but none are shown, the page shows "No overdue tasks."
+- It is off by default and resets on reload. A task added while it is on, with no due date or a future one, is hidden.
+- The filter runs in the browser only. There is no API or database change.
 
 ## Testing
 
 ```bash
 npm run build             # Vite production build
 npm run test:backend       # node:test backend tests (same as: npm test --prefix backend), temporary SQLite file
-npm run test:frontend      # node:test unit tests for frontend date helpers (isOverdue, todayLocal)
+npm run test:frontend      # node:test unit tests for frontend date and list helpers (isOverdue, todayLocal, filterTasks)
 npx playwright install chromium  # one-time browser setup
 npm run test:search        # Playwright task-search acceptance tests
-npm run test:bdd           # generates and runs the playwright-bdd due-date E2E suite against a temporary database
+npm run test:bdd           # generates and runs the playwright-bdd due-date and overdue-filter E2E suites against a temporary database
 ```
 
 ## Troubleshooting

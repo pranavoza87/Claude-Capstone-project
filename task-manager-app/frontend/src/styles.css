@@ -43,6 +43,17 @@ body {
   width: 100%;
 }
 
+.search-form .filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.search-form input[type='checkbox'] {
+  width: auto;
+  padding: 0;
+}
+
 .task-list {
   list-style: none;
   padding: 0;
