@@ -1,5 +1,41 @@
 {
   "env": {
     "CLAUDE_CODE_FORK_SUBAGENT": "0"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/guard-tasks-db.ps1",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/log-subagent.ps1",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./.claude/hooks/log-subagent.ps1",
+            "shell": "powershell"
+          }
+        ]
+      }
+    ]
   }
 }
