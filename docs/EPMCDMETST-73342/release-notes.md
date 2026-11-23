@@ -2,7 +2,7 @@
 
 - **Jira:** EPMCDMETST-73342 (Story, Low priority)
 - **Branch:** `feature/EPMCDMETST-73342-overdue-filter` (base HEAD `b0e61a5`)
-- **Status:** Phase 7 approved (2026-11-23: "Approved, use your recommendations"). Code review approved with recommendations (Phase 6). Changes are not committed yet. The manual visual check is PENDING (see Verification).
+- **Status:** Phase 7 approved (2026-11-23: "Approved, use your recommendations"). Code review approved with recommendations (Phase 6). Manual visual verification completed on 2026-11-23.
 - **Authoring note:** drafted by step7-docs-release-notes, which wrote no files before approval; the orchestrator wrote this file and the README edits after approval.
 
 ## Summary
@@ -45,10 +45,11 @@ Results are from the Phase 6 reviewer's re-run, as recorded in `docs/EPMCDMETST-
 
 - `git status --porcelain -- task-manager-app/backend` was empty, so there is no backend change.
 - BDD runs use a temporary database (`tests/.tmp/e2e.db`). The tracked `backend/tasks.db` files were not touched.
-- **Manual visual check of the checkbox layout: PENDING.** It is not yet confirmed. The CSS specificity was reviewed, but the layout has not been seen rendered. The code review requires this check before the PR, run by the user with `DB_PATH` set to a temp file. Update this line once the check is done.
+- **Manual visual check of the checkbox layout: PASSED.** Verified at desktop and 375px mobile widths with a temporary `DB_PATH`. The checkbox is compact and inline with its label in both layouts; checked and unchecked states are clear; overdue rows retain the red accent and "Overdue" text; selected filtering excludes future tasks.
+- Evidence screenshots: `docs/EPMCDMETST-73342/images/tm-checkbox-default.png`, `tm-checkbox-selected.png`, and `tm-checkbox-mobile.png`.
 
 ## Acceptance criteria
-AC1 to AC4 were traced to code and tests in the code review and marked Pass (AC3 and AC4 rest on the counts above). AC1's visual layout is still subject to the pending manual check.
+AC1 to AC4 were traced to code and tests in the code review and marked Pass. AC1 is also visually confirmed at desktop and 375px mobile widths.
 
 ## Accepted behavior
 - A task added while the filter is on, with no due date or a future due date, disappears from the list after the add, with no hint. This is accepted (design-review L4). The scenario for it is not automated (code-review N5).

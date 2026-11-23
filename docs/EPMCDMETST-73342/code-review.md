@@ -5,7 +5,7 @@ Reviewed: uncommitted working-tree changes on branch feature/EPMCDMETST-73342-ov
 - Modified: task-manager-app/frontend/src/{App.jsx,dates.js,styles.css}, task-manager-app/frontend/test/dates.test.js
 - New (untracked): task-manager-app/tests/bdd/features/overdue-filter.feature, task-manager-app/tests/bdd/steps/overdue-filter.steps.js
 Against: requirements.md, architecture.md, design-review.md, impl-plan.md (all approved).
-Authoring note: step6-code-review returned this review without writing files (HITL); the orchestrator wrote it after approval. The reviewer's re-run counts below are from real output; the manual visual check has not been performed.
+Authoring note: step6-code-review returned this review without writing files (HITL); the orchestrator wrote it after approval. The reviewer's re-run counts below are from real output. Manual visual verification was completed on 2026-11-23.
 
 ## 1. Verdict
 Approve with minor follow-ups. No Blocker, High or Medium findings. No required changes.
@@ -38,7 +38,7 @@ Design-review items implemented: R1 (scoped CSS), L1 (filterTasks contract), L2 
 None.
 
 ### Low
-- L1: The manual visual check of the checkbox layout is unverified. CSS: `.search-form .filter-toggle` (flex, centered, 0.5rem gap) and `.search-form input[type='checkbox'] { width:auto; padding:0 }` (styles.css 46-55). Specificity is correct: (0,2,1) beats `.search-form input` (0,1,1) and comes after it. Not yet seen rendered.
+- L1 resolved: Manual visual verification passed at desktop and 375px mobile widths. The checkbox is compact and inline with "Show overdue only"; checked and unchecked states are distinct; overdue rows retain the red accent and "Overdue" text; filtered-out future tasks are not shown. Evidence: `docs/EPMCDMETST-73342/images/tm-checkbox-default.png`, `tm-checkbox-selected.png`, and `tm-checkbox-mobile.png`.
 - L2: `role="status"` is on an element mounted only when the empty state appears; some screen readers announce live regions reliably only when the container exists before its content changes. The BDD test checks role and text, not announcement. Acceptable as approved (design-review L3). Optional follow-up: an always-rendered `<p role="status">` whose text changes.
 - L3: The empty state is tested only together with a search term ("future"). A plain "filter on, tasks exist, none overdue" case without a search is not covered in BDD. The existing scenario still exercises the `tasks.length > 0 && visibleTasks.length === 0` branch and asserts all four required facts.
 
@@ -56,7 +56,7 @@ None.
 - Cleanliness: no console.log, TODO or debug code in the diff; `dist/` is gitignored.
 
 ## 6. Resolved decisions (recommendations accepted)
-1. Manual visual check (L1): required before the PR, run by the user with `DB_PATH` set to a temp file. Status: PENDING, not yet confirmed.
+1. Manual visual check (L1): completed on 2026-11-23 at desktop and 375px mobile widths using a temporary `DB_PATH`. Desktop selected and mobile screenshots confirm layout and filtering. Three evidence screenshots are stored in `docs/EPMCDMETST-73342/images/`.
 2. L2 (always-mounted live region) and L3 (empty-state scenario without a search): parked as optional follow-ups; no code change in this story.
 
 ## 7. Before commit / PR (hygiene, not code defects)
