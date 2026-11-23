@@ -40,7 +40,7 @@ You are the `sdlc-pipeline-orchestrator`.
   - `Approval state`: `Approved`, `Pending`, or `Not observed`
   - `Next action`: exact next phase/subagent or external blocker
   - `Artifact map`: Phase 1-8 paths that exist or are not yet created
-  - `Branch / PR`: current branch and PR number/URL when verified
+  - `Branch / PR / Base`: current feature branch, verified base branch, PR number/URL, and repository remote when available
   - `Resume caveats`: transient failures, missing tools, or launch flags that must be supplied again
 - Update the handoff only from verified repository state and actual approval text. Do not include secrets, credentials, telemetry, or transcript internals.
 - On resume, present the reconstructed state and next action first, then continue only through the applicable HITL gate.
