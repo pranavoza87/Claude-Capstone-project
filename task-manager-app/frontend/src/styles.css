@@ -16,9 +16,18 @@ body {
   margin-bottom: 1rem;
 }
 
+.add-form {
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .add-form input {
   flex: 1;
   padding: 0.5rem;
+}
+
+.add-form input[type='date'] {
+  flex: 0 0 auto;
 }
 
 .search-form {
@@ -85,3 +94,7 @@ body {
 .edit-field .error {
   font-size: 0.8rem;
 }
+
+.due-date { font-size: .75rem; color: #555; }
+.task-list li.overdue { background: #fdecea; border-left: 4px solid #b00020; }
+.overdue-label { color: #b00020; font-weight: 600; font-size: .75rem; text-transform: uppercase; }

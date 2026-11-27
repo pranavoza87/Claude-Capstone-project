@@ -61,7 +61,7 @@ test('updates the title and returns the updated task (200)', async () => {
   const id = seed();
   const res = await patch(id, { title: 'Renamed' });
   assert.equal(res.status, 200);
-  assert.deepEqual(res.body, { id, title: 'Renamed', status: 'todo' });
+  assert.deepEqual(res.body, { id, title: 'Renamed', status: 'todo', due_date: null });
   assert.deepEqual(row(id), { id, title: 'Renamed', status: 'todo' });
 });
 
@@ -182,7 +182,7 @@ test('updates status to each allowed value', async () => {
   for (const status of ['in_progress', 'done', 'todo']) {
     const res = await patch(id, { status });
     assert.equal(res.status, 200);
-    assert.deepEqual(res.body, { id, title: 'Original', status });
+    assert.deepEqual(res.body, { id, title: 'Original', status, due_date: null });
   }
 });
 
@@ -200,7 +200,7 @@ test('updates title and status together', async () => {
   const id = seed();
   const res = await patch(id, { title: 'Both', status: 'done' });
   assert.equal(res.status, 200);
-  assert.deepEqual(res.body, { id, title: 'Both', status: 'done' });
+  assert.deepEqual(res.body, { id, title: 'Both', status: 'done', due_date: null });
 });
 
 test('is atomic: a valid field is not applied when another field is invalid', async () => {
@@ -394,4 +394,22 @@ test('existing routes keep their legacy error shape (POST now rejects invalid st
   const missing = await fetch(`${base}/api/tasks/987654`, { method: 'DELETE' });
   assert.equal(missing.status, 404);
   assert.deepEqual(await missing.json(), { error: 'task not found' });
+});
+
+// ---- US-101 (M4): PATCH returns the stored due_date ----
+
+test('PATCH returns the stored due_date', async () => {
+  const id = Number(
+    db.prepare('INSERT INTO tasks (title, status, due_date) VALUES (?, ?, ?)').run('Dated', 'todo', '2030-01-15')
+      .lastInsertRowid
+  );
+  const res = await patch(id, { title: 'Dated renamed' });
+  assert.equal(res.status, 200);
+  assert.deepEqual(res.body, { id, title: 'Dated renamed', status: 'todo', due_date: '2030-01-15' });
+  assert.equal(db.prepare('SELECT due_date FROM tasks WHERE id = ?').get(id).due_date, '2030-01-15');
+
+  // due_date is still not patchable: rejected as an unknown field, value unchanged
+  const rejected = await patch(id, { due_date: '2031-02-02' });
+  assertValidation(rejected, 'due_date');
+  assert.equal(db.prepare('SELECT due_date FROM tasks WHERE id = ?').get(id).due_date, '2030-01-15');
 });

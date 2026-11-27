@@ -1,6 +1,7 @@
 ---
 name: step4-impl-plan
 description: Creates a concrete, step-by-step brownfield implementation plan (docs/impl-plan.md) from docs/requirements.md, docs/architecture.md, and docs/design-review.md.
+skills: [impl-plan]
 disallowedTools: Edit, NotebookEdit
 permissionMode: default
 color: green

@@ -1,6 +1,7 @@
 ---
 name: step1-requirements
 description: Reads a User Story from Jira or local docs/user-story.md, asks clarifying questions, and drafts docs/requirements.md with strict HITL approval.
+skills: [requirements]
 disallowedTools: Edit, NotebookEdit
 permissionMode: default
 color: blue

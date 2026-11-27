@@ -42,6 +42,30 @@ function validateTaskCreateStatus(status) {
   return { value: status, error: null };
 }
 
+const DUE_DATE_ERROR = 'due_date must be a valid date in YYYY-MM-DD format';
+const DUE_DATE_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
+
+/**
+ * Validate the optional `due_date` of a POST /api/tasks body (US-101).
+ * undefined, null and '' mean "no due date" (value null). Anything else must be a string in strict
+ * YYYY-MM-DD form that is a real calendar date. No falsy defaulting (0 and false are errors) and
+ * no Date parsing of the string. Returns { value, error }.
+ */
+function validateTaskCreateDueDate(v) {
+  if (v === undefined || v === null || v === '') return { value: null, error: null };
+  if (typeof v !== 'string') return { value: null, error: DUE_DATE_ERROR };
+  const m = DUE_DATE_PATTERN.exec(v);
+  if (!m) return { value: null, error: DUE_DATE_ERROR };
+  const y = Number(m[1]);
+  const mo = Number(m[2]);
+  const d = Number(m[3]);
+  if (mo < 1 || mo > 12) return { value: null, error: DUE_DATE_ERROR };
+  const leap = y % 4 === 0 && (y % 100 !== 0 || y % 400 === 0);
+  const monthLengths = [31, leap ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+  if (d < 1 || d > monthLengths[mo - 1]) return { value: null, error: DUE_DATE_ERROR };
+  return { value: v, error: null };
+}
+
 // Fields a PATCH body may contain. Anything else is rejected (spec 4.2.3).
 const PATCHABLE_FIELDS = ['title', 'status'];
 
@@ -102,4 +126,4 @@ function validateTaskPatch(body) {
   return { value, details };
 }
 
-module.exports = { TITLE_MAX_LENGTH, TASK_STATUSES, PATCHABLE_FIELDS, validateTaskPatch, validateTaskCreateStatus };
+module.exports = { TITLE_MAX_LENGTH, TASK_STATUSES, PATCHABLE_FIELDS, validateTaskPatch, validateTaskCreateStatus, validateTaskCreateDueDate, DUE_DATE_ERROR };

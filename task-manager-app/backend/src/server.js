@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const db = require('./db');
-const { validateTaskPatch, validateTaskCreateStatus } = require('./validation');
+const { validateTaskPatch, validateTaskCreateStatus, validateTaskCreateDueDate } = require('./validation');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -53,7 +53,7 @@ function sendError(res, httpStatus, code, message, details) {
 }
 
 app.get('/api/tasks', (req, res) => {
-  const tasks = db.prepare('SELECT id, title, status FROM tasks ORDER BY id DESC').all();
+  const tasks = db.prepare('SELECT id, title, status, due_date FROM tasks ORDER BY id DESC').all();
   res.json(tasks);
 });
 
@@ -77,8 +77,16 @@ app.post('/api/tasks', (req, res) => {
     return res.status(400).json({ error: statusError });
   }
 
-  const info = db.prepare('INSERT INTO tasks (title, status) VALUES (?, ?)').run(title, status);
-  res.status(201).json({ id: info.lastInsertRowid, title, status });
+  // US-101: optional due_date (strict YYYY-MM-DD); validated after title/length/status, before insert.
+  const { value: dueDate, error: dueDateError } = validateTaskCreateDueDate(req.body.due_date);
+  if (dueDateError) {
+    return res.status(400).json({ error: dueDateError });
+  }
+
+  const info = db
+    .prepare('INSERT INTO tasks (title, status, due_date) VALUES (?, ?, ?)')
+    .run(title, status, dueDate);
+  res.status(201).json({ id: info.lastInsertRowid, title, status, due_date: dueDate });
 });
 
 // ENH-01 (EPMCDMETST-70517): update a task. Spec 4.2.3, TSK-201/TSK-202.
@@ -100,7 +108,7 @@ app.patch('/api/tasks/:id', (req, res) => {
   const columns = Object.keys(value);
   const assignments = columns.map((c) => `${c} = ?`).join(', ');
   const task = db
-    .prepare(`UPDATE tasks SET ${assignments} WHERE id = ? RETURNING id, title, status`)
+    .prepare(`UPDATE tasks SET ${assignments} WHERE id = ? RETURNING id, title, status, due_date`)
     .get(...columns.map((c) => value[c]), id);
   if (!task) {
     return sendError(res, 404, 'NOT_FOUND', 'Task not found');
